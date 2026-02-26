@@ -2,7 +2,7 @@
 
 A cybersecurity tool that analyses emails for phishing indicators using pattern recognition, sender analysis, and social engineering detection. Built with pure HTML, CSS, and JavaScript — no frameworks, no dependencies.
 
-**Live Demo:** [your-github-username.github.io/phishguard](https://your-github-username.github.io/phishguard)
+**Live Demo:** (https://nomcebom-dev.github.io/Phishguard/)
 
 ---
 
@@ -44,21 +44,6 @@ No libraries. No build tools. No dependencies. Open `index.html` in any browser.
 
 ---
 
-## 🚀 How to Run
-
-```bash
-# Clone the repo
-git clone https://github.com/your-username/phishguard.git
-
-# Open in browser
-open index.html
-```
-
-Or deploy instantly on **GitHub Pages**:
-1. Push to GitHub
-2. Go to Settings → Pages → Source: `main` branch
-3. Done — live in 60 seconds
-
 ---
 
 ## 📚 What I Learned
@@ -82,4 +67,4 @@ This is an **educational project** demonstrating cybersecurity awareness concept
 **Nomcebo Langelihle Mtshali**  
 Junior Developer | Cybersecurity Enthusiast | Johannesburg, South Africa  
 📧 nomcebomtshali131@gmail.com  
-🔗 [Portfolio](https://your-portfolio-link.com) · [LinkedIn](https://linkedin.com/in/nomcebo-mtshali)
+🔗 [Portfolio](https://your-portfolio-link.com) 
