@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard — Email Threat Analyser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scanlines"></div>
+  <div class="noise"></div>
+
+  <!-- BOOT SCREEN -->
+  <div class="boot-screen" id="bootScreen">
+    <div class="boot-content">
+      <pre class="boot-logo">
+ ██████╗ ██╗  ██╗██╗███████╗██╗  ██╗ ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗ 
+ ██╔══██╗██║  ██║██║██╔════╝██║  ██║██╔════╝ ██║   ██║██╔══██╗██╔══██╗██╔══██╗
+ ██████╔╝███████║██║███████╗███████║██║  ███╗██║   ██║███████║██████╔╝██║  ██║
+ ██╔═══╝ ██╔══██║██║╚════██║██╔══██║██║   ██║██║   ██║██╔══██║██╔══██╗██║  ██║
+ ██║     ██║  ██║██║███████║██║  ██║╚██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
+ ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ 
+      </pre>
+      <div class="boot-lines" id="bootLines"></div>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div class="app" id="app" style="display:none">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-left">
+        <span class="logo-text">PHISH<span class="logo-accent">GUARD</span></span>
+        <span class="version">v2.4.1</span>
+      </div>
+      <div class="header-center">
+        <div class="status-bar">
+          <span class="status-dot"></span>
+          <span class="status-text">SYSTEM ONLINE</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <span class="mono-small">THREAT ANALYSIS ENGINE</span>
+      </div>
+    </header>
+
+    <!-- TERMINAL STRIP -->
+    <div class="terminal-strip">
+      <div class="terminal-track" id="terminalTrack">
+        <span>INITIALISING THREAT DATABASE...</span>
+        <span class="sep">///</span>
+        <span>PHISHING PATTERNS LOADED: 47</span>
+        <span class="sep">///</span>
+        <span>SUSPICIOUS DOMAINS: 1,204</span>
+        <span class="sep">///</span>
+        <span>URGENCY TRIGGERS: 38</span>
+        <span class="sep">///</span>
+        <span>IMPERSONATION MARKERS: 22</span>
+        <span class="sep">///</span>
+        <span>SOCIAL ENGINEERING VECTORS: 15</span>
+        <span class="sep">///</span>
+        <span>INITIALISING THREAT DATABASE...</span>
+        <span class="sep">///</span>
+        <span>PHISHING PATTERNS LOADED: 47</span>
+        <span class="sep">///</span>
+        <span>SUSPICIOUS DOMAINS: 1,204</span>
+        <span class="sep">///</span>
+        <span>URGENCY TRIGGERS: 38</span>
+        <span class="sep">///</span>
+        <span>IMPERSONATION MARKERS: 22</span>
+        <span class="sep">///</span>
+        <span>SOCIAL ENGINEERING VECTORS: 15</span>
+        <span class="sep">///</span>
+      </div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <main class="main">
+
+      <!-- INPUT PANEL -->
+      <section class="panel input-panel">
+        <div class="panel-header">
+          <span class="panel-num">[01]</span>
+          <span class="panel-title">EMAIL INPUT</span>
+          <span class="panel-line"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">SENDER ADDRESS</label>
+          <div class="input-wrap">
+            <span class="input-prefix">&gt;</span>
+            <input type="text" id="senderInput" class="terminal-input" placeholder="sender@domain.com" spellcheck="false" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">SUBJECT LINE</label>
+          <div class="input-wrap">
+            <span class="input-prefix">&gt;</span>
+            <input type="text" id="subjectInput" class="terminal-input" placeholder="Enter email subject..." spellcheck="false" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">EMAIL BODY</label>
+          <div class="input-wrap textarea-wrap">
+            <span class="input-prefix top">&gt;</span>
+            <textarea id="bodyInput" class="terminal-input terminal-textarea" placeholder="Paste the full email body here..." spellcheck="false"></textarea>
+          </div>
+        </div>
+
+        <button class="scan-btn" id="scanBtn" onclick="analyseEmail()">
+          <span class="btn-text">INITIATE SCAN</span>
+          <span class="btn-icon">⟶</span>
+          <div class="btn-glow"></div>
+        </button>
+
+        <button class="clear-btn" onclick="clearAll()">CLEAR / RESET</button>
+
+        <!-- SAMPLE BUTTONS -->
+        <div class="samples">
+          <span class="samples-label">LOAD SAMPLE:</span>
+          <button class="sample-btn" onclick="loadSample('phish')">PHISHING EXAMPLE</button>
+          <button class="sample-btn" onclick="loadSample('legit')">LEGIT EXAMPLE</button>
+        </div>
+      </section>
+
+      <!-- RESULTS PANEL -->
+      <section class="panel results-panel" id="resultsPanel">
+        <div class="panel-header">
+          <span class="panel-num">[02]</span>
+          <span class="panel-title">THREAT ANALYSIS</span>
+          <span class="panel-line"></span>
+        </div>
+
+        <!-- IDLE STATE -->
+        <div class="idle-state" id="idleState">
+          <div class="idle-icon">⬡</div>
+          <p>Awaiting email input.<br>Enter details and initiate scan.</p>
+        </div>
+
+        <!-- SCANNING STATE -->
+        <div class="scanning-state" id="scanningState" style="display:none">
+          <div class="scan-animation">
+            <div class="scan-ring r1"></div>
+            <div class="scan-ring r2"></div>
+            <div class="scan-ring r3"></div>
+            <div class="scan-core">SCANNING</div>
+          </div>
+          <div class="scan-log" id="scanLog"></div>
+        </div>
+
+        <!-- RESULTS STATE -->
+        <div class="results-state" id="resultsState" style="display:none">
+
+          <!-- VERDICT -->
+          <div class="verdict-wrap" id="verdictWrap">
+            <div class="verdict-label">THREAT VERDICT</div>
+            <div class="verdict" id="verdict"></div>
+            <div class="verdict-sub" id="verdictSub"></div>
+          </div>
+
+          <!-- THREAT METER -->
+          <div class="meter-wrap">
+            <div class="meter-header">
+              <span class="meter-label">THREAT LEVEL</span>
+              <span class="meter-value" id="meterValue">0%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="meterFill"></div>
+              <div class="meter-zones">
+                <span>SAFE</span>
+                <span>SUSPICIOUS</span>
+                <span>DANGEROUS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- FLAGS -->
+          <div class="flags-wrap">
+            <div class="flags-header">DETECTED THREAT INDICATORS</div>
+            <div class="flags-list" id="flagsList"></div>
+          </div>
+
+          <!-- BREAKDOWN -->
+          <div class="breakdown-wrap">
+            <div class="breakdown-header">CATEGORY SCORES</div>
+            <div class="breakdown-grid" id="breakdownGrid"></div>
+          </div>
+
+          <!-- RECOMMENDATION -->
+          <div class="recommendation" id="recommendation"></div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>PHISHGUARD v2.4.1 — Built by Nomcebo Mtshali</span>
+      <span>Pure HTML · CSS · JavaScript · No external dependencies</span>
+      <span>Educational cybersecurity tool</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
